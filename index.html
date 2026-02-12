@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Secret Valentine 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
-      padding: 0;
       min-height: 100vh;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
@@ -22,9 +21,10 @@
       padding: 30px 25px;
       border-radius: 25px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
       max-width: 380px;
-      animation: fadeIn 1.2s ease;
+      width: 100%;
+      animation: fadeIn 1s ease;
     }
 
     h1 {
@@ -35,12 +35,12 @@
     p {
       color: #444;
       font-size: 15px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     input {
       padding: 10px;
-      width: 80%;
+      width: 85%;
       border-radius: 20px;
       border: 1px solid #ddd;
       text-align: center;
@@ -49,17 +49,25 @@
     }
 
     button {
-      padding: 10px 20px;
+      padding: 10px 22px;
       border: none;
       border-radius: 30px;
       font-size: 15px;
       cursor: pointer;
-      background: #ff4d6d;
-      color: white;
       transition: 0.3s;
     }
 
     button:hover { transform: scale(1.1); }
+
+    #unlockBtn, #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background: #eee;
+      color: #333;
+    }
 
     .hidden { display: none; }
 
@@ -90,16 +98,46 @@
       display: flex;
       justify-content: center;
       gap: 15px;
+      margin-top: 10px;
     }
 
-    #noBtn { background: #eee; color: #333; }
+    .message {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #ff4d6d;
+    }
 
-    .message { margin-top: 10px; font-weight: 600; color: #ff4d6d; }
+    .success {
+      display: none;
+      margin-top: 15px;
+    }
 
-    .success { display: none; margin-top: 15px; }
+    .gifts {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .gift {
+      font-size: 40px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gift:hover {
+      transform: scale(1.3) rotate(-5deg);
+    }
+
+    .gift-text {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ff4d6d;
+    }
 
     .hearts span {
-      position: absolute;
+      position: fixed;
       bottom: -20px;
       font-size: 20px;
       animation: float 6s linear infinite;
@@ -116,123 +154,135 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- PASSWORD PAGE -->
-  <div class="card" id="lock">
-    <h1>🔐 Secret Page</h1>
-    <p>Hint 💡<br>The day we started dating ❤️</p>
-    <input type="text" id="password" placeholder="Enter the special date">
-    <br>
-    <button onclick="unlock()">Unlock 💖</button>
-    <p id="error" style="color:red"></p>
+<!-- PASSWORD PAGE -->
+<div class="card" id="lock">
+  <h1>🔐 Secret Page</h1>
+  <p>Hint 💡<br>The day we started dating ❤️</p>
+  <input type="text" id="password" placeholder="Enter the special date">
+  <br>
+  <button id="unlockBtn" onclick="unlock()">Unlock 💖</button>
+  <p id="error" style="color:red"></p>
+</div>
+
+<!-- MAIN PAGE -->
+<div class="card hidden" id="main">
+
+  <!-- MAIN PHOTO -->
+  <img src="her.jpeg" class="photo" alt="Our Photo">
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <img src="memory1.jpeg">
+    <img src="memory2.jpeg">
+    <img src="memory3.jpeg">
   </div>
 
-  <!-- MAIN VALENTINE PAGE -->
-  <div class="card hidden" id="main">
-    <img src="her.jpeg" class="photo" alt="Our Photo">   
-  
+  <h1>Hey Beautiful ❤️</h1>
+  <p>I have something very important to ask you…</p>
+  <h1>Will you be my Valentine? 🌹</h1>
 
-    <div class="gallery">
-      <img src="memory1.jpeg">
-      <img src="memory2.jpeg">
-      <img src="memory3.jpeg">
-
-    </div>
-
-    <h1>Hey Beautiful ❤️</h1>
-    <p>I have something very important to ask you…</p>
-    <h1>Will you be my Valentine? 🌹</h1>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
-
-    <div class="message" id="message"></div>
-
-    <div class="success" id="success">
-      <h2>Yayyyy 🥰💖</h2>
-      <p>
-        I loved teasing you that I didn’t order anything for you or didn’t do anything for Valentine’s 😌<br><br>
-        But the truth is… you have made my life sooo sooo perfect, I can’t even describe it in words.<br><br>
-        I really, really like you, baby gurllll ♥️♥️🥰💖<br><br>
-        Our hugs and cuddles are my absolute favorite thing we do — like literally my favorite.<br><br>
-        To the best girlfriend ever, to the most perfect woman, and to my girl who has turned my life into a rom‑com dream ✨<br><br>
-        <strong>Happy Valentine’s Day ❤️♥️🥰💖✨💕💗💓</strong>
-      </p>
-    </div>
+  <div class="buttons">
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 🙈</button>
   </div>
 
-  <div class="hearts" id="hearts"></div>
+  <div class="message" id="message"></div>
 
-  <script>
-    const validPasswords = [
-      "8th january 2026",
-      "8 january 2026",
-      "08 january 2026",
-      "8/1/2026",
-      "08/01/2026",
-      "8-1-2026",
-      "08-01-2026",
-      "8.1.2026",
-      "08.01.2026",
-      "8 jan 2026",
-      "08 jan 2026",
-      "08/01/26",
-      "8/1/26"
-    ];
+  <!-- SUCCESS MESSAGE -->
+  <div class="success" id="success">
+    <h2>Yayyyy 🥰💖</h2>
 
-    function unlock() {
-      const input = document.getElementById('password').value;
-      const normalizedInput = input.trim().toLowerCase();
-      if (validPasswords.includes(normalizedInput)) {
-        document.getElementById('lock').classList.add('hidden');
-        document.getElementById('main').classList.remove('hidden');
-      } else {
-        document.getElementById('error').innerText = "Wrong password 😤 Think harder 💭";
-      }
+    <p>
+      I loved teasing you that I didn’t order anything for you or didn’t do anything for Valentine’s 😌<br><br>
+      But the truth is… you have made my life sooo sooo perfect, I can’t even describe it in words.<br><br>
+      I really, really like you, baby gurllll ♥️♥️🥰💖<br><br>
+      Our hugs and cuddles are my absolute favorite thing we do — like literally my favorite.<br><br>
+      To the best girlfriend ever, to the most perfect woman, and to my girl who has turned my life into a rom-com dream ✨<br><br>
+      <strong>Happy Valentine’s Day ❤️♥️🥰💖✨💕💗💓</strong>
+    </p>
+
+    <hr style="margin:20px 0; border:none; height:1px; background:#ffd1dc;">
+
+    <h2>Choose your gift 🎁</h2>
+
+    <div class="gifts">
+      <div class="gift" onclick="openGift(0)">🎁</div>
+      <div class="gift" onclick="openGift(1)">🎁</div>
+      <div class="gift" onclick="openGift(2)">🎁</div>
+    </div>
+
+    <p class="gift-text" id="giftText"></p>
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+  const validPasswords = [
+    "8th january 2026","8 january 2026","08 january 2026",
+    "8/1/2026","08/01/2026","8-1-2026","08-01-2026",
+    "8 jan 2026","08 jan 2026","8/1/26","08/01/26"
+  ];
+
+  function unlock() {
+    const input = document.getElementById("password").value.trim().toLowerCase();
+    if (validPasswords.includes(input)) {
+      document.getElementById("lock").classList.add("hidden");
+      document.getElementById("main").classList.remove("hidden");
+    } else {
+      document.getElementById("error").innerText = "Wrong password 😤 Think harder 💭";
     }
+  }
 
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const success = document.getElementById('success');
-    const message = document.getElementById('message');
-    const heartsContainer = document.getElementById('hearts');
+  const noMessages = [
+    "You broke my heart 💔 Wrong option 😭",
+    "Honey do you not like me anymore?? 🥺",
+    "Whyyyy 😭 Just say yes",
+    "No option invalid ❌ Choose yes 😌",
+    "Sorry I’m kidnapping you 🚗💨"
+  ];
 
-    const noMessages = [
-      "You broke my heart 💔 Wrong option 😭",
-      "Honey do you not like me anymore?? 🥺",
-      "Whyyyy 😭 Just say yes",
-      "No option invalid ❌ Choose yes 😌",
-      "Sorry I’m kidnapping you 🚗💨"
-    ];
+  document.getElementById("yesBtn").onclick = () => {
+    document.getElementById("success").style.display = "block";
+    document.getElementById("yesBtn").style.display = "none";
+    document.getElementById("noBtn").style.display = "none";
+    document.getElementById("message").innerText = "";
+    createHearts();
+  };
 
-    yesBtn.addEventListener('click', () => {
-      success.style.display = 'block';
-      yesBtn.style.display = 'none';
-      noBtn.style.display = 'none';
-      message.innerText = "";
-      createHearts();
-    });
+  document.getElementById("noBtn").onclick = () => {
+    document.getElementById("message").innerText =
+      noMessages[Math.floor(Math.random() * noMessages.length)];
+  };
 
-    noBtn.addEventListener('click', () => {
-      message.innerText = noMessages[Math.floor(Math.random() * noMessages.length)];
-      yesBtn.style.transform = 'scale(1.2)';
-    });
-
-    function createHearts() {
-      for (let i = 0; i < 30; i++) {
-        const h = document.createElement('span');
-        h.innerHTML = '❤️';
-        h.style.left = Math.random() * 100 + 'vw';
-        heartsContainer.appendChild(h);
-        setTimeout(() => h.remove(), 6000);
-      }
+  function createHearts() {
+    for (let i = 0; i < 30; i++) {
+      const h = document.createElement("span");
+      h.innerHTML = "❤️";
+      h.style.left = Math.random() * 100 + "vw";
+      document.getElementById("hearts").appendChild(h);
+      setTimeout(() => h.remove(), 6000);
     }
-  </script>
+  }
+
+  const gifts = [
+    "Unlimited hugs & kisses pass 💞🥰",
+    "Me saying yes to anything you want when we’re alone hehe 😏😏",
+    "BF’s surprise 🎉😌"
+  ];
+
+  function openGift(index) {
+    document.getElementById("giftText").innerText = gifts[index];
+  }
+</script>
+
 </body>
 </html>
+
+
 
 
 
