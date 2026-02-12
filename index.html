@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Valentine 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      max-width: 380px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin: 10px 0;
+    }
+
+    p {
+      color: #444;
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      background: #ff4d6d;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover { transform: scale(1.1); }
+
+    .hidden { display: none; }
+
+    .photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid #ff4d6d;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .gallery img {
+      width: 70px;
+      height: 70px;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    #noBtn { background: #eee; color: #333; }
+
+    .message { margin-top: 10px; font-weight: 600; color: #ff4d6d; }
+
+    .success { display: none; margin-top: 15px; }
+
+    .hearts span {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); opacity: 0.8; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PASSWORD PAGE -->
+  <div class="card" id="lock">
+    <h1>🔐 Secret Page</h1>
+    <p>Hint 💡<br>The day we started dating ❤️</p>
+    <input type="text" id="password" placeholder="Enter the special date">
+    <br>
+    <button onclick="unlock()">Unlock 💖</button>
+    <p id="error" style="color:red"></p>
+  </div>
+
+  <!-- MAIN VALENTINE PAGE -->
+  <div class="card hidden" id="main">
+    <img src="main.jpg" class="photo" alt="Our Photo">
+
+    <div class="gallery">
+      <img src="memory1.jpg">
+      <img src="memory2.jpg">
+      <img src="memory3.jpg">
+
+    </div>
+
+    <h1>Hey Beautiful ❤️</h1>
+    <p>I have something very important to ask you…</p>
+    <h1>Will you be my Valentine? 🌹</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="success" id="success">
+      <h2>Yayyyy 🥰💖</h2>
+      <p>
+        I loved teasing you that I didn’t order anything for you or didn’t do anything for Valentine’s 😌<br><br>
+        But the truth is… you have made my life sooo sooo perfect, I can’t even describe it in words.<br><br>
+        I really, really like you, baby gurllll ♥️♥️🥰💖<br><br>
+        Our hugs and cuddles are my absolute favorite thing we do — like literally my favorite.<br><br>
+        To the best girlfriend ever, to the most perfect woman, and to my girl who has turned my life into a rom‑com dream ✨<br><br>
+        <strong>Happy Valentine’s Day ❤️♥️🥰💖✨💕💗💓</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const validPasswords = [
+      "8th january 2026",
+      "8 january 2026",
+      "08 january 2026",
+      "8/1/2026",
+      "08/01/2026",
+      "8-1-2026",
+      "08-01-2026",
+      "8.1.2026",
+      "08.01.2026",
+      "8 jan 2026",
+      "08 jan 2026",
+      "08/01/26",
+      "8/1/26"
+    ];
+
+    function unlock() {
+      const input = document.getElementById('password').value;
+      const normalizedInput = input.trim().toLowerCase();
+      if (validPasswords.includes(normalizedInput)) {
+        document.getElementById('lock').classList.add('hidden');
+        document.getElementById('main').classList.remove('hidden');
+      } else {
+        document.getElementById('error').innerText = "Wrong password 😤 Think harder 💭";
+      }
+    }
+
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const success = document.getElementById('success');
+    const message = document.getElementById('message');
+    const heartsContainer = document.getElementById('hearts');
+
+    const noMessages = [
+      "You broke my heart 💔 Wrong option 😭",
+      "Honey do you not like me anymore?? 🥺",
+      "Whyyyy 😭 Just say yes",
+      "No option invalid ❌ Choose yes 😌",
+      "Sorry I’m kidnapping you 🚗💨"
+    ];
+
+    yesBtn.addEventListener('click', () => {
+      success.style.display = 'block';
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+      message.innerText = "";
+      createHearts();
+    });
+
+    noBtn.addEventListener('click', () => {
+      message.innerText = noMessages[Math.floor(Math.random() * noMessages.length)];
+      yesBtn.style.transform = 'scale(1.2)';
+    });
+
+    function createHearts() {
+      for (let i = 0; i < 30; i++) {
+        const h = document.createElement('span');
+        h.innerHTML = '❤️';
+        h.style.left = Math.random() * 100 + 'vw';
+        heartsContainer.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+      }
+    }
+  </script>
+</body>
+</html>
